@@ -5,7 +5,7 @@ from logger import Logger
 from virus import Virus
 random.seed(42)
 
-
+#testing
 class Simulation(object):
     """Main class that will run the herd immunity simulation program.
     Expects initialization parameters passed as command line arguments when
