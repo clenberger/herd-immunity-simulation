@@ -99,8 +99,8 @@ class Simulation(object):
         """
         for person in self.population: 
             if self.pop_size == self.total_dead:
-                return False
                 print("the population has been wiped out!")
+                return False
             
         # TODO: Complete this helper method.  Returns a Boolean.
         pass
@@ -162,8 +162,8 @@ class Simulation(object):
         # Assert statements are included to make sure that only living people
         # are passed
         # in as params
-        assert person.is_alive is True
-        assert random_person.is_alive is True
+        assert person.is_alive == True
+        assert random_person.is_alive == True
 
         # TODO: Finish this method.
         #  The possible cases you'll need to cover are listed below:
