@@ -13,7 +13,7 @@ class Logger(object):
         # TODO:  Finish this initialization method. The file_name passed should
         # be the
         # full file name of the file that the logs will be written to.
-        self.file_name = None
+        self.file_name = file_name
 
     def write_metadata(self, pop_size, vacc_percentage, virus_name, mortality_rate, basic_repro_num):
         """
@@ -27,6 +27,12 @@ class Logger(object):
         # TIP: Use 'w' mode when you open the file. For all other methods, use
         # the 'a' mode to append a new log to the end, since 'w' overwrites the
         # file.
+        self.file_name = open("log.txt", "w")
+        self.file_name.write(str(pop_size) + "\n")
+        self.file_name.write(str(vacc_percentage) + "\n")
+        self.file_name.write(str(virus_name) + "\n")
+        self.file_name.write(str(mortality_rate) + "\n")
+        self.file_name.write(str(basic_repro_num) + "\n")
         # NOTE: Make sure to end every line with a '/n' character to ensure
         # that each
         # event logged ends up on a separate line!
