@@ -203,7 +203,7 @@ class Simulation(object):
                 self.newly_infected.append(random_person._id)
                 random_person.infection == True
                 
-            
+        self.logger.log_interaction(person)
         # TODO: Finish this method.
         #  The possible cases you'll need to cover are listed below:
         # random_person is vaccinated:
@@ -225,7 +225,7 @@ class Simulation(object):
         self.newly_infected
         and update each Person object with the disease.
         """
-        #for _ in self.newly_infected:
+        for _id in self.newly_infected:
             
         # TODO: Call this method at the end of every time step and infect each
         # Person.
