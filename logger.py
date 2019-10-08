@@ -27,12 +27,12 @@ class Logger(object):
         # TIP: Use 'w' mode when you open the file. For all other methods, use
         # the 'a' mode to append a new log to the end, since 'w' overwrites the
         # file.
-        self.file_name = open("log.txt", "w")
-        self.file_name.write(str(pop_size) + "\n")
-        self.file_name.write(str(vacc_percentage) + "\n")
-        self.file_name.write(str(virus_name) + "\n")
-        self.file_name.write(str(mortality_rate) + "\n")
-        self.file_name.write(str(basic_repro_num) + "\n")
+        f = open(self.file_name, "w")
+        f.write(str(pop_size) + "\n")
+        f.write(str(vacc_percentage) + "\n")
+        f.write(str(virus_name) + "\n")
+        f.write(str(mortality_rate) + "\n")
+        f.write(str(basic_repro_num) + "\n")
         # NOTE: Make sure to end every line with a '/n' character to ensure
         # that each
         # event logged ends up on a separate line!
@@ -48,46 +48,39 @@ class Logger(object):
             "{person.ID} didn't infect {random_person.ID} because {'vaccinated'
             or 'already sick'} \n"
         """
-<<<<<<< HEAD
         
-        self.file_name = open("log.txt", "a")
+        f = open(self.file_name, "a")
         
         if did_infect:
-            self.file_name.write("{person._id} infects {random_person._id} \n" .format(person._id, random_person._id))
+            f.write("{person._id} infects {random_person._id} \n" .format(person._id, random_person._id))
         elif random_person_vacc:
-            self.file_name.write("{person._id} didn't infect {random_person._id} because {random_person_vacc} \n" .format(person._id, random_person._id, random_person_vacc))
+            f.write("{person._id} didn't infect {random_person._id} because {random_person_vacc} \n" .format(person._id, random_person._id, random_person_vacc))
         elif random_person_sick:
-            self.file_name.write("{person._id} didn't infect {random_person._id} because {random_person_sick} \n" .format(person._id, random_person._id, random_person_sick))
+            f.write("{person._id} didn't infect {random_person._id} because {random_person_sick} \n" .format(person._id, random_person._id, random_person_sick))
         else:
-            self.file_name.write("Interaction could not be logged, please try again! \n")
+            f.write("Interaction could not be logged, something went wrong! \n")
         
         # TODO: Finish this method. Think about how the booleans passed (or not passed) represent all the possible edge cases. Use the values passed along with each person, along with whether they are sick or vaccinated when they interact to determine exactly what happened in the interaction and create a String, and write to your logfile.
         
         
-=======
-        # TODO: Finish this method. Think about how the booleans passed (or not
-        # passed)
-        # represent all the possible edge cases. Use the values passed along
-        # with each person,
-        # along with whether they are sick or vaccinated when they interact to
-        # determine
-        # exactly what happened in the interaction and create a String, and
-        # write to your logfile.
-        #if random_person_sick == False and not random_person_vacc:
-        #    did_infect == True
-        #    random_person_Sick == True
-        #    print("{person.ID} infects")
-        pass
->>>>>>> 4a79c0f7d1f1ed59421e6da631a60c4c5289ab56
 
-    def log_infection_survival(self, person, did_die_from_infection):
+    def log_infection_survival(self, person, did_die_from_infection, did_survive_infection):
         r"""
         The Simulation object uses this method to log the results of every
-        call of a Person object's .resolve_infection() method.
+        call of a Person object's .did_survive_infection() method.
         The format of the log should be:
             "{person.ID} died from infection\n" or "{person.ID} survived
             infection.\n"
         """
+        f = open(self.file_name, "a")
+        
+        if did_die_from_infection:
+            f.write("{person._id} died from infection \n" .format(person._id))
+        elif did_survive_infection:
+            f.write("{person._id} survived infection. \n" .format(person._id))
+        else:
+            f.write("Infection survival could not be logged, something went wrong! \n")
+        
         
         
         # TODO: Finish this method. If the person survives,
