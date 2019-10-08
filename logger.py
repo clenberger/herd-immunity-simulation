@@ -38,8 +38,7 @@ class Logger(object):
         # event logged ends up on a separate line!
         pass
 
-    def log_interaction(self, person, random_person, random_person_sick=None,
-                        random_person_vacc=None, did_infect=None):
+    def log_interaction(self, person, random_person, random_person_sick=None, random_person_vacc=None, did_infect=None):
         r"""
         The Simulation object should use this method to log every interaction
         a sick person has during each time step.
@@ -67,6 +66,8 @@ class Logger(object):
             "{person.ID} died from infection\n" or "{person.ID} survived
             infection.\n"
         """
+        
+        
         # TODO: Finish this method. If the person survives,
         # did_die_from_infection
         # should be False.  Otherwise, did_die_from_infection should be True.

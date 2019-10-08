@@ -5,7 +5,7 @@ from logger import Logger
 from virus import Virus
 random.seed(42)
 
-
+#testing
 class Simulation(object):
     """Main class that will run the herd immunity simulation program.
     Expects initialization parameters passed as command line arguments when
@@ -59,8 +59,7 @@ class Simulation(object):
         self.current_infected = 0  # Int
         self.vacc_percentage = vacc_percentage  # float between 0 and 1
         self.total_dead = 0  # Int
-        self.file_name = "{}_simulation_pop_{}_vp_{}_infected_{}.txt".format(
-            virus_name, pop_size, vacc_percentage, initial_infected)
+        self.file_name = "{}_simulation_pop_{}_vp_{}_infected_{}.txt".format(virus_name, pop_size, vacc_percentage, initial_infected)
         self.newly_infected = []
 
     def _create_population(self, initial_infected):
@@ -73,6 +72,8 @@ class Simulation(object):
             Returns:
                 list: A list of Person objects.
         """
+        
+        
         # TODO: Finish this method!  This method should be called when the
         # simulation
         # begins, to create the population that will be used. This method
@@ -96,6 +97,11 @@ class Simulation(object):
                 bool: True for simulation should continue, False if it should
                 end.
         """
+        for person in self.population: 
+            if self.pop_size == self.total_dead:
+                return False
+                print("the population has been wiped out!")
+            
         # TODO: Complete this helper method.  Returns a Boolean.
         pass
 
