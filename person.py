@@ -1,4 +1,4 @@
-from random import randint
+from random import random
 from virus import Virus
 random.seed(42)
 
@@ -34,13 +34,14 @@ class Person(object):
         rand_num = random.randint()
         
         if rand_num < self.infection.mortality_rate:
-            self.infection = True
-            print("person died")
-            return rand_num
+            #self.infection = True
+            #print("person died")
+            return False
         else:
-            self.infection = None
-            self.is_vaccinated = True
-            print("Person lived")
+            #self.infection = None
+            #self.is_vaccinated = True
+            #print("Person lived")
+            return True
         return self.is_alive
 
 
@@ -92,16 +93,21 @@ def test_did_survive_infection():
     person = Person(4, False, virus)
 
     # Resolve whether the Person survives the infection or not
+    
     survived = person.did_survive_infection()
     # Check if the Person survived or not
     if survived:
         assert person.is_alive is True
         # TODO: Write your own assert statements that test
         # the values of each attribute for a Person who survived
-        # assert ...
+        # assert ... 
+        assert person._id == 4
+        assert person.is_vaccinated == False
+        assert person.infection is "Dysentary"
     else:
         assert person.is_alive is False
         # TODO: Write your own assert statements that test
         # the values of each attribute for a Person who did not survive
-        # assert ...
+        # assert ... 
+        assert person.is_alive is False 
         pass
