@@ -73,6 +73,7 @@ class Simulation(object):
             Returns:
                 list: A list of Person objects.
         """
+        
         initial_pop = []
         num_of_vacc_people = int(self.pop_size * self.vacc_percentage)
         num_people_left = self.pop_size - num_of_vacc_people - self.initial_infected
@@ -115,6 +116,7 @@ class Simulation(object):
                 end.
         """
         if self.pop_size > self.total_dead:
+                print("The human race survived")
                 return True
         elif self.pop_size == self.total_dead:
             print("The population has been wiped out!")
@@ -147,8 +149,7 @@ class Simulation(object):
             # TODO: for every iteration of this loop, call self.time_step() to
             # compute another
             # round of this simulation.
-            print('The simulation has ended after',
-                '{time_step_counter} turns.'.format(time_step_counter))
+            print('The simulation has ended after','{time_step_counter} turns.'.format(time_step_counter))
         pass
 
     def time_step(self):
@@ -184,7 +185,17 @@ class Simulation(object):
         # in as params
         assert person.is_alive == True
         assert random_person.is_alive == True
-
+        if random_person.is_vaccinated and person.infection == True:
+            print("{} did not infect {}").format(person, random_person)
+        if random_person.infected == True and person.infection == True:
+            print("{} is already infected").format(random_person)
+        if random_person.is_alive == True and random_person.is_vaccinated == False and person.infection == True:
+            print("{} infected {}").format(person, random_person)
+            num = random.uniform(0,1)
+            if num < repro_num:
+                self.newly_infected.append(random_person._id)
+                random_person.infection == True
+            
         # TODO: Finish this method.
         #  The possible cases you'll need to cover are listed below:
         # random_person is vaccinated:
@@ -197,7 +208,7 @@ class Simulation(object):
         #     than repro_rate, random_person's ID should be appended to
         #     Simulation object's newly_infected array, so that their .infected
         #     attribute can be changed to True at the end of the time step.
-        # TODO: Call slogger method during this method.
+        # TODO: Call logger method during this method.
         pass
 
     def _infect_newly_infected(self):
