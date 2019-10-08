@@ -116,13 +116,11 @@ class Simulation(object):
                 end.
         """
         if self.pop_size > self.total_dead:
-                print("The human race survived")
+                
                 return True
         elif self.pop_size == self.total_dead:
-            print("The population has been wiped out!")
+            
             return False
-        else:
-            print("Something went wrong!")
 
             
         # TODO: Complete this helper method.  Returns a Boolean.
@@ -217,7 +215,7 @@ class Simulation(object):
         self.newly_infected
         and update each Person object with the disease.
         """
-        # for _ in self.newly_infected:
+        for _ in self.newly_infected:
             
         # TODO: Call this method at the end of every time step and infect each
         # Person.
