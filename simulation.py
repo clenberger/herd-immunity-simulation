@@ -141,8 +141,7 @@ class Simulation(object):
         # continue
         # the simulation and run at least 1 more time_step.
 
-        = _simulation_should_continue()
-        
+        # whatever = _simulation_should_continue()
         
         # TODO: Keep track of the number of time steps that have passed.
         # HINT: You may want to call the logger's log_time_step() method at the
@@ -177,9 +176,9 @@ class Simulation(object):
         while interaction_counter <= 100:
             for infected in infected_list:
                 random_pop = random(self.population, 100)
-                    for random_person in random_pop:
-                        self.interaction(person, random_person)
-                        interaction_counter += 1
+            for random_person in random_pop:
+                self.interaction(person, random_person)
+                interaction_counter += 1
         
         
         
@@ -237,7 +236,7 @@ class Simulation(object):
         self.newly_infected
         and update each Person object with the disease.
         """
-        # for _ in self.newly_infected:
+        for _id in self.newly_infected:
             
         # TODO: Call this method at the end of every time step and infect each
         # Person.
