@@ -48,15 +48,21 @@ class Logger(object):
             "{person.ID} didn't infect {random_person.ID} because {'vaccinated'
             or 'already sick'} \n"
         """
-        # TODO: Finish this method. Think about how the booleans passed (or not
-        # passed)
-        # represent all the possible edge cases. Use the values passed along
-        # with each person,
-        # along with whether they are sick or vaccinated when they interact to
-        # determine
-        # exactly what happened in the interaction and create a String, and
-        # write to your logfile.
-        pass
+        
+        self.file_name = open("log.txt", "a")
+        
+        if did_infect:
+            self.file_name.write("{person._id} infects {random_person._id} \n" .format(person._id, random_person._id))
+        elif random_person_vacc:
+            self.file_name.write("{person._id} didn't infect {random_person._id} because {random_person_vacc} \n" .format(person._id, random_person._id, random_person_vacc))
+        elif random_person_sick:
+            self.file_name.write("{person._id} didn't infect {random_person._id} because {random_person_sick} \n" .format(person._id, random_person._id, random_person_sick))
+        else:
+            self.file_name.write("Interaction could not be logged, please try again! \n")
+        
+        # TODO: Finish this method. Think about how the booleans passed (or not passed) represent all the possible edge cases. Use the values passed along with each person, along with whether they are sick or vaccinated when they interact to determine exactly what happened in the interaction and create a String, and write to your logfile.
+        
+        
 
     def log_infection_survival(self, person, did_die_from_infection):
         r"""
