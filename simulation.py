@@ -73,6 +73,8 @@ class Simulation(object):
             Returns:
                 list: A list of Person objects.
         """
+        initial_population = []
+        
         
         
         # TODO: Finish this method!  This method should be called when the
@@ -98,13 +100,16 @@ class Simulation(object):
                 bool: True for simulation should continue, False if it should
                 end.
         """
-        for person in self.population: 
-            if self.pop_size == self.total_dead:
-                print("the population has been wiped out!")
-                return False
+        if self.pop_size > self.total_dead:
+                return True
+        elif self.pop_size == self.total_dead:
+            print("The population has been wiped out!")
+            return False
+        else:
+            print("Something went wrong!")
+            
             
         # TODO: Complete this helper method.  Returns a Boolean.
-        pass
 
     def run(self):
         """
