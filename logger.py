@@ -56,6 +56,10 @@ class Logger(object):
         # determine
         # exactly what happened in the interaction and create a String, and
         # write to your logfile.
+        #if random_person_sick == False and not random_person_vacc:
+        #    did_infect == True
+        #    random_person_Sick == True
+        #    print("{person.ID} infects")
         pass
 
     def log_infection_survival(self, person, did_die_from_infection):
