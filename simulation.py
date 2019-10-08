@@ -115,14 +115,19 @@ class Simulation(object):
                 bool: True for simulation should continue, False if it should
                 end.
         """
-        if self.pop_size > self.total_dead:
-                print("The human race survived")
-                return True
-        elif self.pop_size == self.total_dead:
-            print("The population has been wiped out!")
+        #if self.pop_size > self.total_dead:
+        #        return True
+        #elif self.pop_size == self.total_dead:
+        #    print("The population has been wiped out!")
+        #    return False
+        #elif self.pop_size == 
+        #else:
+        #    print("Something went wrong!")
+        
+        if self.current_infected == 0:
             return False
         else:
-            print("Something went wrong!")
+            return True
 
             
         # TODO: Complete this helper method.  Returns a Boolean.
@@ -138,6 +143,8 @@ class Simulation(object):
         # continue
         # the simulation and run at least 1 more time_step.
 
+        whatever = _simulation_should_continue()
+        
         # TODO: Keep track of the number of time steps that have passed.
         # HINT: You may want to call the logger's log_time_step() method at the
         # end of each time step.
@@ -195,6 +202,7 @@ class Simulation(object):
             if num < repro_num:
                 self.newly_infected.append(random_person._id)
                 random_person.infection == True
+                
             
         # TODO: Finish this method.
         #  The possible cases you'll need to cover are listed below:
