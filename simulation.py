@@ -50,7 +50,7 @@ class Simulation(object):
         # At the end of each time step, call self._infect_newly_infected()
         # and then reset .newly_infected back to an empty list.
         self.logger = None
-        self.population = []  # List of Person objects
+        self.population = self._create_population  # List of Person objects
         self.pop_size = pop_size  # Int
         self.next_person_id = 0  # Int
         self.virus = virus  # Virus object
@@ -73,9 +73,24 @@ class Simulation(object):
             Returns:
                 list: A list of Person objects.
         """
-        initial_population = []
+        initial_pop = []
+        num_of_vacc_people = int(self.pop_size * self.vacc_percentage)
+        num_people_left = self.pop_size - num_of_vacc_people - self.initial_infected
         
-        
+        for _ in (0, num_of_vacc_people):
+            person = Person(self.next_person_id, True, virus)
+            self.next_person_id += 1
+            initial_pop.append(person)
+        for _ in self.initial_infected:
+            person = Person(self.next_person_id, False, virus)
+            self.newly_infected.append(person)
+            initial_pop.append(person)
+            self.next_person_id += 1
+        for _ in num_people_left:
+            person = Person(self.next_person_id, False, virus)
+            initial_pop.append(person)
+            self.next_person_id += 1
+        return initial_pop
         
         # TODO: Finish this method!  This method should be called when the
         # simulation
@@ -90,7 +105,6 @@ class Simulation(object):
         # Use the attributes created in the init method to create a population
         # that has
         # the correct intial vaccination percentage and initial infected.
-        pass
 
     def _simulation_should_continue(self):
         """
@@ -107,7 +121,7 @@ class Simulation(object):
             return False
         else:
             print("Something went wrong!")
-            
+
             
         # TODO: Complete this helper method.  Returns a Boolean.
 
@@ -192,7 +206,8 @@ class Simulation(object):
         self.newly_infected
         and update each Person object with the disease.
         """
-
+        # for _ in self.newly_infected:
+            
         # TODO: Call this method at the end of every time step and infect each
         # Person.
         # TODO: Once you have iterated through the entire list of
