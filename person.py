@@ -1,6 +1,6 @@
 import random
 from virus import Virus
-#random.seed(42)
+random.seed(42)
 
 
 class Person(object):

@@ -57,6 +57,7 @@ class Simulation(object):
         self.initial_infected = initial_infected  # Int
         self.total_infected = 0  # Int
         self.current_infected = 0  # Int
+        self.current_infected_list = current_infected_list
         self.vacc_percentage = vacc_percentage  # float between 0 and 1
         self.total_dead = 0  # Int
         self.file_name = "{}_simulation_pop_{}_vp_{}_infected_{}.txt".format(virus_name, pop_size, vacc_percentage, initial_infected)
@@ -118,12 +119,9 @@ class Simulation(object):
         #if self.pop_size > self.total_dead:
         #        return True
         #elif self.pop_size == self.total_dead:
-        #    print("The population has been wiped out!")
         #    return False
         #elif self.pop_size == 
         #else:
-        #    print("Something went wrong!")
-        
         if self.current_infected == 0:
             return False
         else:
@@ -143,7 +141,8 @@ class Simulation(object):
         # continue
         # the simulation and run at least 1 more time_step.
 
-        whatever = _simulation_should_continue()
+        = _simulation_should_continue()
+        
         
         # TODO: Keep track of the number of time steps that have passed.
         # HINT: You may want to call the logger's log_time_step() method at the
@@ -164,7 +163,7 @@ class Simulation(object):
         This method should contain all the logic for computing one time step
         in the simulation.
         This includes:
-            1. 100 total interactions with a randon person for each infected
+            1. 100 total interactions with a random person for each infected
             person in the population
             2. If the person is dead, grab another random person from the
             population.
@@ -173,6 +172,17 @@ class Simulation(object):
             3. Otherwise call simulation.interaction(person, random_person) and
                 increment interaction counter by 1.
         """
+        infected_list = []
+        interaction_counter = 0
+        while interaction_counter <= 100:
+            for infected in infected_list:
+                random_pop = random(self.population, 100)
+                    for random_person in random_pop:
+                        self.interaction(person, random_person)
+                        interaction_counter += 1
+        
+        
+        
 
         # TODO: Finish this method.
         pass
@@ -194,7 +204,7 @@ class Simulation(object):
         assert random_person.is_alive == True
         if random_person.is_vaccinated and person.infection == True:
             print("{} did not infect {}").format(person, random_person)
-        if random_person.infected == True and person.infection == True:
+        if random_person.infection == True and person.infection == True:
             print("{} is already infected").format(random_person)
         if random_person.is_alive == True and random_person.is_vaccinated == False and person.infection == True:
             print("{} infected {}").format(person, random_person)
@@ -202,6 +212,8 @@ class Simulation(object):
             if num < repro_num:
                 self.newly_infected.append(random_person._id)
                 random_person.infection == True
+                
+    self.logger.log_interaction(person)
                 
             
         # TODO: Finish this method.
@@ -217,7 +229,7 @@ class Simulation(object):
         #     Simulation object's newly_infected array, so that their .infected
         #     attribute can be changed to True at the end of the time step.
         # TODO: Call logger method during this method.
-        pass
+        
 
     def _infect_newly_infected(self):
         """
