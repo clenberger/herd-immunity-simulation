@@ -200,8 +200,7 @@ class Simulation(object):
                 if not did_survive:
                     self.total_dead += 1
                     self.current_infected -= 1
-                    
-            self.logger.log_infection_survival(person, did_survive)
+                self.logger.log_infection_survival(person, did_survive)
 
         self._infect_newly_infected()
         
@@ -266,7 +265,7 @@ class Simulation(object):
         # TODO: Once you have iterated through the entire list of
         # self.newly_infected, remember
         # to reset self.newly_infected back to an empty list.
-        pass
+        
 
 
 if __name__ == "__main__":
