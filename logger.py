@@ -32,7 +32,7 @@ class Logger(object):
         f.write(str(vacc_percentage) + "\n")
         f.write(str(virus_name) + "\n")
         f.write(str(mortality_rate) + "\n")
-        f.write(str(basic_repro_num) + "\n")
+        f.write(str(basic_repro_num) + "\n") 
         # NOTE: Make sure to end every line with a '/n' character to ensure
         # that each
         # event logged ends up on a separate line!
@@ -59,12 +59,13 @@ class Logger(object):
             f.write("{person._id} didn't infect {random_person._id} because {random_person_sick} \n" .format(person._id, random_person._id, random_person_sick))
         else:
             f.write("Interaction could not be logged, something went wrong! \n")
+        f.close()
         
         # TODO: Finish this method. Think about how the booleans passed (or not passed) represent all the possible edge cases. Use the values passed along with each person, along with whether they are sick or vaccinated when they interact to determine exactly what happened in the interaction and create a String, and write to your logfile.
         
         f.close()
 
-    def log_infection_survival(self, person, did_die_from_infection, did_survive_infection):
+    def log_infection_survival(self, person, did_die_from_infection):
         r"""
         The Simulation object uses this method to log the results of every
         call of a Person object's .did_survive_infection() method.
@@ -75,11 +76,10 @@ class Logger(object):
         f = open(self.file_name, "a")
         
         if did_die_from_infection:
-            f.write("{person._id} died from infection \n" .format(person._id))
-        elif did_survive_infection:
-            f.write("{person._id} survived infection. \n" .format(person._id))
+            f.write(f"{person._id} died from infection\n")
         else:
-            f.write("Infection survival could not be logged, something went wrong! \n")
+            f.write(f"{person._id} survived the infection\n")
+        f.close()
         
         f.close()
         
@@ -107,6 +107,8 @@ class Logger(object):
             "Time step {time_step_number} ended, beginning
             {time_step_number + 1}\n"
         """
+        f = open(self.file_name, "a")
+        f.write()
         # TODO: Finish this method. This method should log when a time step
         # ends, and a
         # new one begins.
