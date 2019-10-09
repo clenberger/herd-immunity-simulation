@@ -61,6 +61,7 @@ class Simulation(object):
         self.total_dead = 0  # Int
         self.file_name = "{}_simulation_pop_{}_vp_{}_infected_{}.txt".format(virus_name, pop_size, vacc_percentage, initial_infected)
         self.logger = Logger(self.file_name)
+        self.logger.write_metadata(self.pop_size, self.vacc_percentage, self.virus.name, self.virus.mortality_rate, self.virus.repro_rate)
         self.newly_infected = []
 
     def _create_population(self, initial_infected):
@@ -176,16 +177,31 @@ class Simulation(object):
             3. Otherwise call simulation.interaction(person, random_person) and
                 increment interaction counter by 1.
         """
-        infected_list = []
-        interaction_counter = 0
-        while interaction_counter <= 100:
-            for infected in infected_list:
-                random_pop = random(self.population, 100)
-            for random_person in random_pop:
-                self.interaction(person, random_person)
-                interaction_counter += 1
-        
-        
+        for person in self.population:
+            if person.infection is True and person.is_alive is True:
+                rand_people = []
+                total_alive = int
+                if self.pop_size - self.total_dead < 100:
+                    total_alive =  self.pop_size - self.total_dead -1
+                for _ in range(total_alive):
+                    random_person = random.choice(self.population)
+                    # evaluate if new person is dead or has an existing ID and if true, pull a new random person and append
+                    while random_person.is_alive is False or random_person._id == person._id:
+                        random_person = random.choice(self.population)
+                    rand_people.append(random_person)
+                # Run interaction
+                for random_person in rand_people:
+                    self.interaction(person, random_person)
+                    
+                did_survive = person.did_survive_infection(self.virus.mortality_rate)
+                
+                if not did_survive:
+                    self.total_dead += 1
+                    self.current_infected -= 1
+                    
+            self.logger.log_infection_survival(person, did_survive)
+
+        self._infect_newly_infected()
         
 
         # TODO: Finish this method.
