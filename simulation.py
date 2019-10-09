@@ -57,7 +57,7 @@ class Simulation(object):
         self.initial_infected = initial_infected  # Int
         self.total_infected = 0  # Int
         self.current_infected = 0  # Int
-        self.current_infected_list = current_infected_list
+        self.current_infected_list = []
         self.vacc_percentage = vacc_percentage  # float between 0 and 1
         self.total_dead = 0  # Int
         self.file_name = "{}_simulation_pop_{}_vp_{}_infected_{}.txt".format(virus_name, pop_size, vacc_percentage, initial_infected)
@@ -79,16 +79,16 @@ class Simulation(object):
         num_of_vacc_people = int(self.pop_size * self.vacc_percentage)
         num_people_left = self.pop_size - num_of_vacc_people - self.initial_infected
         
-        for _ in (0, num_of_vacc_people):
+        for _ in range(0, num_of_vacc_people):
             person = Person(self.next_person_id, True, virus)
             self.next_person_id += 1
             initial_pop.append(person)
-        for _ in self.initial_infected:
+        for _ in range(self.initial_infected):
             person = Person(self.next_person_id, False, virus)
             self.newly_infected.append(person)
             initial_pop.append(person)
             self.next_person_id += 1
-        for _ in num_people_left:
+        for _ in range(num_people_left):
             person = Person(self.next_person_id, False, virus)
             initial_pop.append(person)
             self.next_person_id += 1
@@ -122,6 +122,7 @@ class Simulation(object):
         #    return False
         #elif self.pop_size == 
         #else:
+        self.current_infected = len(self.newly_infected)
         if self.current_infected == 0:
             return False
         else:
@@ -148,9 +149,10 @@ class Simulation(object):
         # end of each time step.
         # TODO: Set this variable using a helper
         time_step_counter = 0
-        should_continue = None
-
-        while should_continue:
+        
+        while self._simulation_should_continue():
+            self.time_step()
+            time_step_counter += 1             
             # TODO: for every iteration of this loop, call self.time_step() to
             # compute another
             # round of this simulation.
@@ -171,11 +173,10 @@ class Simulation(object):
             3. Otherwise call simulation.interaction(person, random_person) and
                 increment interaction counter by 1.
         """
-        infected_list = []
+        #infected_list = []
         interaction_counter = 0
-        while interaction_counter <= 100:
-            for infected in infected_list:
-                random_pop = random(self.population, 100)
+        for person in self.newly_infected:
+            random_pop = random(self.population, 100)
             for random_person in random_pop:
                 self.interaction(person, random_person)
                 interaction_counter += 1
@@ -236,7 +237,8 @@ class Simulation(object):
         self.newly_infected
         and update each Person object with the disease.
         """
-        for _id in self.newly_infected:
+        for id in self.newly_infected:
+            if id 
             
         # TODO: Call this method at the end of every time step and infect each
         # Person.
