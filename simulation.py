@@ -79,16 +79,16 @@ class Simulation(object):
         num_of_vacc_people = int(self.pop_size * self.vacc_percentage)
         num_people_left = self.pop_size - num_of_vacc_people - self.initial_infected
         
-        for _ in (0, num_of_vacc_people):
+        for _ in range(0, num_of_vacc_people):
             person = Person(self.next_person_id, True, virus)
             self.next_person_id += 1
             initial_pop.append(person)
-        for _ in self.initial_infected:
+        for _ in range(self.initial_infected):
             person = Person(self.next_person_id, False, virus)
             self.newly_infected.append(person)
             initial_pop.append(person)
             self.next_person_id += 1
-        for _ in num_people_left:
+        for _ in range(num_people_left):
             person = Person(self.next_person_id, False, virus)
             initial_pop.append(person)
             self.next_person_id += 1
@@ -122,7 +122,8 @@ class Simulation(object):
         #    return False
         #elif self.pop_size == 
         #else:
-        if self.current_infected == len(self.newly_infected):
+        self.current_infected = len(self.newly_infected)
+        if self.current_infected == 0:
             return False
         else:
             return True
@@ -153,10 +154,11 @@ class Simulation(object):
         # HINT: You may want to call the logger's log_time_step() method at the
         # end of each time step.
         # TODO: Set this variable using a helper
+        time_step_counter = 0
         
-        should_continue = None
-
-        while should_continue:
+        while self._simulation_should_continue():
+            self.time_step()
+            time_step_counter += 1             
             # TODO: for every iteration of this loop, call self.time_step() to
             # compute another
             # round of this simulation.
@@ -254,11 +256,11 @@ class Simulation(object):
         self.newly_infected
         and update each Person object with the disease.
         """
-        # for _id in self.newly_infected:
-        #     if person._id == _id:
-        #         person.infected = self.virus
-        # self.newly_infected = []
-        
+        for person in self.newly_infected:
+            person.infection = True
+            self.current_infected += 1 
+        self.newly_infected = []
+            
         # TODO: Call this method at the end of every time step and infect each
         # Person.
         # TODO: Once you have iterated through the entire list of
