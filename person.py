@@ -31,17 +31,17 @@ class Person(object):
         """
         # Only called if infection attribute is not None.
         # TODO:  Finish this method. Should return a Boolean
-        rand_num = random.uniform(0,1)
-        
-        if rand_num <= self.infection.mortality_rate:
-            self.infection = True
-            self.is_alive = False
-            return False
+        if self.infection != None:
+            random_chance = random.uniform(0, 1)
+            if random_chance < self.infection.mortality_rate:
+                self.is_alive = False
+                self.is_infected = False
+                return False
+            else:
+                self.is_vaccinated = True
+                return True
         else:
-            self.infection = False
-            self.is_vaccinated = True
-            return True
-        return self.is_alive
+            return None
 
 
 """These are simple tests to ensure that you are instantiating your Person
