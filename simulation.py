@@ -121,7 +121,7 @@ class Simulation(object):
         #    return False
         #elif self.pop_size == 
         #else:
-        if self.current_infected == 0:
+        if self.current_infected == len(self.newly_infected):
             return False
         else:
             return True
@@ -142,12 +142,17 @@ class Simulation(object):
         # the simulation and run at least 1 more time_step.
 
         # whatever = _simulation_should_continue()
+        time_step_counter = 0
         
+        while self._simulation_should_continue():
+            self.time_step()
+            time_step_counter += 1
+
         # TODO: Keep track of the number of time steps that have passed.
         # HINT: You may want to call the logger's log_time_step() method at the
         # end of each time step.
         # TODO: Set this variable using a helper
-        time_step_counter = 0
+        
         should_continue = None
 
         while should_continue:
