@@ -50,13 +50,14 @@ class Logger(object):
         """
         
         f = open(self.file_name, "a")
+        f.write('Interaction: ')
         
         if did_infect:
-            f.write("{person._id} infects {random_person._id} \n" .format(person._id, random_person._id))
+            f.write(f"{person._id} infects {random_person._id} \n")
         elif random_person_vacc:
-            f.write("{person._id} didn't infect {random_person._id} because {random_person_vacc} \n" .format(person._id, random_person._id, random_person_vacc))
+            f.write(f"{person._id} didn't infect {random_person._id} because {random_person_vacc} \n")
         elif random_person_sick:
-            f.write("{person._id} didn't infect {random_person._id} because {random_person_sick} \n" .format(person._id, random_person._id, random_person_sick))
+            f.write(f"{person._id} didn't infect {random_person._id} because {random_person_sick} \n")
         else:
             f.write("Interaction could not be logged, something went wrong! \n")
         f.close()
@@ -89,7 +90,7 @@ class Logger(object):
         # Append the results of the infection to the logfile
         
 
-    def log_time_step(self, time_step_number):
+    def log_time_step(self, time_step_number, did_survive, total_dead, total_infect_amt, temp_dead_counter, new_infect_amt):
         r"""
         STRETCH CHALLENGE DETAILS:
         If you choose to extend this method, the format of the summary
@@ -107,8 +108,18 @@ class Logger(object):
             "Time step {time_step_number} ended, beginning
             {time_step_number + 1}\n"
         """
+        
+        
+        
+        
         f = open(self.file_name, "a")
-        f.write()
+        f.write(f"{new_infect_amt} people were infected during this stage\n")
+        if not did_survive: 
+            f.write(f"{temp_dead_counter} people died during this stage\n")
+        f.write(f"{total_infect_amt} total people were infected during this stage\n")
+        f.write(f"{total_dead} people died overall")
+        f.write(f"Time step {time_step_number} ended, beginning {time_step_number + 1}\n")
+        f.close()
         # TODO: Finish this method. This method should log when a time step
         # ends, and a
         # new one begins.

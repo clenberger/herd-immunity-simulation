@@ -179,6 +179,8 @@ class Simulation(object):
             3. Otherwise call simulation.interaction(person, random_person) and
                 increment interaction counter by 1.
         """
+        temp_dead_counter = 0
+        time_step_number = 1
 
         for person in self.population:
             if person.infection is True and person.is_alive is True:
@@ -201,9 +203,16 @@ class Simulation(object):
                 if not did_survive:
                     self.total_dead += 1
                     self.current_infected -= 1
+                    temp_dead_counter += 1
                 self.logger.log_infection_survival(person, did_survive)
-
+        
+                new_infect_amt = len(self.newly_infected)
+                total_infect_amt = self.total_infected
+                total_dead_amt = self.total_dead
+                self.logger.log_time_step(time_step_number, did_survive, total_dead_amt, total_infect_amt, temp_dead_counter, new_infect_amt)
         self._infect_newly_infected()
+        
+        
         
 
         # TODO: Finish this method.
@@ -238,7 +247,8 @@ class Simulation(object):
                 self.newly_infected.append(random_person._id)
                 random_person.infection == True
                 
-        self.logger.log_interaction(person, random_person, random_person.is_infected, random_person.is_vaccinated, random_person.is_vaccinated, did_infect)
+        self.logger.log_interaction(person, random_person, random_person.is_infected, random_person.is_vaccinated, did_infect)
+        
         # TODO: Finish this method.
         #  The possible cases you'll need to cover are listed below:
         # random_person is vaccinated:
